@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
-require "bricky"
 
+require "bricky"
+require "bricky/setup"
+
+Bricky::Setup.start
 Bricky::Command.start
