@@ -28,7 +28,6 @@ module Bricky
         def images
           ["builder", "runtime"].collect {|image| Bricky::Image.new(image) }
         end
-
     end
   end
 end

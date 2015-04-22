@@ -1,0 +1,27 @@
+#!/bin/bash
+export SUCCESS='\033[32m'
+export RESET_COLOR='\033[0m'
+
+info() {
+  message=$1;
+  echo -e "\n\n\033[32m${message}\033[0m"
+}
+
+execute() {
+  info "Adding local packages as an apt-source"
+  echo "deb file:/// builded/" >> /etc/apt/sources.list.d/local.list
+  apt-get update
+
+  info "Installing package"
+  apt-get install --yes --force-yes --no-install-recommends deploy42
+
+  docker_ip=$(ifconfig -a | awk '/(cast)/ { print $2 }' | cut -d':' -f2 | head -1)
+  info "Try to access the application on: ${docker_ip}"
+}
+
+shell() {
+  /bin/bash
+}
+
+execute
+shell

@@ -1,19 +1,20 @@
 require "thor"
+require "ostruct"
 require "colorize"
 
-require "bricky/commands/check"
+require "bricky/commands/builder"
 require "bricky/commands/bootstrap"
 
 module Bricky
   class Command < Thor
-    desc :check, "checky bricky dependencies"
-    def check
-      Bricky::Commands::Check.execute
-    end
-
-    desc :bootstrap, "build project images"
+    desc :bootstrap, "bootstrap project images"
     def bootstrap
       Bricky::Commands::Bootstrap.execute
+    end
+
+    desc :builder, "build project"
+    def builder
+      Bricky::Commands::Builder.execute
     end
   end
 end

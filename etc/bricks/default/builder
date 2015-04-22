@@ -1,0 +1,13 @@
+#!/bin/bash -l
+
+info() {
+  message=$1;
+  echo -e "\n\n\033[32m${message}\033[0m";
+}
+
+execute() {
+  info 'Copying files'
+  rsync -a --stats /source /opt/build/
+}
+
+execute
