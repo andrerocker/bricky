@@ -1,0 +1,10 @@
+bricky:
+  project:
+    name: myproject
+    input: default
+    images: bricky/images
+
+  package:
+    output: debian
+    cache: bricky/tmp/cache
+    build: bricky/tmp/build
