@@ -1,14 +1,18 @@
 module Bricky
   module Bricks
     class Default
+      attr_accessor :config
+
+      def initialize(config)
+        self.config = config
+      end
+  
       def arguments
-        project_path = File.expand_path(".")
-        script_path = "#{bricks_path}/default"
-        
-        %W(
-          -v #{project_path}:/source
-          -v #{script_path}:/bricks/default
-        )
+        project_path = File.expand_path(config.source)
+        scripts_path = "#{bricks_path}/default"
+         
+        %W(-v #{project_path}:/source
+           -v #{scripts_path}:/bricks/default)
       end
   
       def entrypoint

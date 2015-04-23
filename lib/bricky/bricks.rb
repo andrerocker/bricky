@@ -7,15 +7,14 @@ module Bricky
     extend self
 
     def resolve
-      [Bricky.config.project.input,
-       Bricky.config.package.output].collect do |brick|
-        resolve_by_name(brick)
+       Bricky.config.bricks.collect do |name, config|
+        resolve_and_initialize(brick_name, config)
       end.uniq
     end
 
-    def resolve_by_name(brick)
-      return Bricky::Bricks::Ruby.new if brick.eql? "ruby"
-      return Bricky::Bricks::Debian.new if brick.eql? "debian"
+    def resolve_by_name(brick, config)
+      return Bricky::Bricks::Ruby.new(config) if brick.eql? "ruby"
+      return Bricky::Bricks::Debian.new(config) if brick.eql? "debian"
 
       Bricky::Bricks::Default.new 
     end

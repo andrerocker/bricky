@@ -2,13 +2,16 @@ require "yaml"
 
 module Bricky
   class Config 
-    attr_accessor :project
-    attr_accessor :package
+    attr_accessor :name
+    attr_accessor :images
+    attr_accessor :bricks
 
     def from_yaml(file)
       config = YAML.load_file(file)["bricky"]
-      self.project = OpenStruct.new(config["project"])
-      self.package = OpenStruct.new(config["package"])
+
+      self.name = config["name"]
+      self.images = config["images"]
+      self.bricks = config["bricks"]
     end
 
     def full_scripts_path

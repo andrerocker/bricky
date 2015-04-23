@@ -10,11 +10,11 @@ module Bricky
 
     private
       def format_name(image)
-        "#{Bricky.config.project.name}/#{image}"
+        "#{Bricky.config.name}/#{image}"
       end
 
       def format_path(image)
-        "#{Bricky.config.project.images}/#{image}"
+        "#{Bricky.config.images}/#{image}"
       end
   end
 end

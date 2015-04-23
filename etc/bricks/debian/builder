@@ -1,0 +1,22 @@
+#!/bin/bash -l
+
+info() {
+  message=$1;
+  echo -e "\n\n\033[32m${message}\033[0m";
+}
+
+execute() {
+  info 'Starting buildpackage'
+  pushd /opt/build/source
+    dpkg-buildpackage -b -rfakeroot
+  popd
+
+  info 'Moving deb files to volume'
+  rm -R /builded/*
+  mv /opt/build/*.deb /builded/
+
+  info 'Recreating local debian packages index'
+  dpkg-scanpackages /build/ | gzip > /build/Packages.gz
+}
+
+execute
