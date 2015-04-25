@@ -7,7 +7,8 @@ info() {
 
 execute() {
   info 'Copying files'
-  rsync -a --stats /source /opt/build/
+  rsync -a --stats /bricks/mounts/volumes/ /opt/build
 }
+
 
 execute

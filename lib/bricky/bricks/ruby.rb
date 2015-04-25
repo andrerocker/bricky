@@ -1,6 +1,6 @@
 module Bricky
   module Bricks
-    class Ruby < Default
+    class Ruby < Helper
       def arguments
       end
   

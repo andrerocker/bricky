@@ -4,5 +4,6 @@ bricky:
   bricks:
     mounts:
       source: . 
+      bricky: ../bricky 
     debian:
       build: bricky/tmp/build
