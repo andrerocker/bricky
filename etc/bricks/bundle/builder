@@ -1,0 +1,16 @@
+#!/bin/bash -l
+
+info() {
+  message=$1;
+  echo -e "\n\n\033[32m${message}\033[0m";
+}
+
+execute() {
+  info 'Vendor project with Bundler'
+  pushd /opt/build/source
+    gem install bundler --conservative --no-ri --no-rdoc
+    bundle install --deployment --without=development:test
+  popd
+}
+
+execute

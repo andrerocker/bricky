@@ -3,7 +3,9 @@ bricky:
   images: bricky/images
   bricks:
     mounts:
-      source: . 
-      bricky: ../bricky 
+      source: .
+      bricky: ../bricky
+    bundle:
+      cache: true
     debian:
       build: bricky/tmp/build
