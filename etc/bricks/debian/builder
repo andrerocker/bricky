@@ -16,7 +16,7 @@ execute() {
   mv /opt/build/*.deb /builded/
 
   info 'Recreating local debian packages index'
-  dpkg-scanpackages /build/ | gzip > /build/Packages.gz
+  dpkg-scanpackages /builded/ | gzip > /builded/Packages.gz
 }
 
 execute
