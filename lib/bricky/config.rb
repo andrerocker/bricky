@@ -14,8 +14,8 @@ module Bricky
       self.bricks = config["bricks"]
     end
 
-    def full_scripts_path
-      File.expand_path("#{base_path}/bricky/containers/scripts", __FILE__)
+    def bricks_path
+      File.expand_path("#{base_path}/etc/bricks", __FILE__)
     end
 
     private
