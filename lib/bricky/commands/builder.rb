@@ -15,7 +15,7 @@ module Bricky
           code = command(image)
           puts format(code)
           
-          unless system(code)
+          unless Kernel.exec(code)
             puts "~~~~~~~~~~~ Problems building image ~~~~~~~~~~~".colorize(:white).on_red
             return false
           end
@@ -26,7 +26,7 @@ module Bricky
         def command(image)
           bricks = Bricky::Bricks.resolve
           arguments = bricks.collect(&:arguments).uniq.join(" ")
-          entrypoints = bricks.collect(&:entrypoint).uniq.join(" && ")
+          entrypoints = bricks.collect(&:entrypoint).compact.uniq.join(" && ")
 
           "docker run #{arguments} -i -t #{image.name} /bin/bash -l -c '#{entrypoints}'"
         end
