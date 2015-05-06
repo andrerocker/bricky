@@ -1,16 +1,10 @@
 module Bricky
   module Bricks
-    class Helper
-      attr_accessor :config
-
-      def initialize(config)
-        self.config = config
+    class Helper < Base
+      def arguments
+        ["-v #{bricks_path}/helper:/bricks/helper",
+          "-e BRICKS_HOME=/bricks/helper"]
       end
-
-      private
-        def bricks_path
-          File.expand_path("../../../../etc/bricks", __FILE__)
-        end
     end
   end
 end
