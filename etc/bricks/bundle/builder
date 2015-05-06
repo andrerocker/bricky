@@ -1,9 +1,6 @@
 #!/bin/bash -le
 
-info() {
-  message=$1;
-  echo -e "\n\n\033[32m${message}\033[0m";
-}
+. $BRICKS_HOME/builder
 
 execute() {
   info 'Vendor project with Bundler'

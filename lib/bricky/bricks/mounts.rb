@@ -1,6 +1,6 @@
 module Bricky
   module Bricks
-    class Mounts < Helper
+    class Mounts < Base
       def arguments
         scripts_path = "#{bricks_path}/mounts"
         command = "-v #{scripts_path}:/bricks/mounts"

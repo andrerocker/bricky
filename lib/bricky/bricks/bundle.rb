@@ -1,6 +1,6 @@
 module Bricky
   module Bricks
-    class Bundle < Helper
+    class Bundle < Base
       def arguments
         scripts_path = "#{bricks_path}/bundle"
         results = ["-v #{scripts_path}:/bricks/bundle"]

@@ -1,6 +1,6 @@
 module Bricky
   module Bricks
-    class Debian < Helper
+    class Debian < Base
       def arguments
         builded_path = File.expand_path(config["build"])
         scripts_path = "#{bricks_path}/debian"

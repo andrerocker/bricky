@@ -1,9 +1,6 @@
-#!/bin/bash -le
+#!/bin/bash -e
 
-info() {
-  message=$1;
-  echo -e "\n\n\033[32m${message}\033[0m";
-}
+. $BRICKS_HOME/builder
 
 execute() {
   info 'Starting buildpackage'

@@ -1,6 +1,6 @@
-require "byebug"
-require "bricky/bricks/helper"
+require "bricky/bricks/base"
 
+require "bricky/bricks/helper"
 require "bricky/bricks/ruby"
 require "bricky/bricks/bundle"
 require "bricky/bricks/debian"
@@ -13,7 +13,7 @@ module Bricky
     def resolve
        Bricky.config.bricks.collect do |name, config|
         resolve_and_initialize(name, config)
-      end.uniq
+       end.uniq << Bricky::Bricks::Helper.new({})
     end
 
     def resolve_and_initialize(name, config)
