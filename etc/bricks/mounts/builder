@@ -3,8 +3,9 @@
 . $BRICKS_HOME/builder
 
 execute() {
-  info 'Copying files'
-  rsync -a --stats /bricks/mounts/volumes/ /opt/build
+  info 'Building workspace'
+  rsync -a --stats /bricks/mounts/volumes/ /opt/workspace
+  chown -R builder. /opt/workspace
 }
 
 execute

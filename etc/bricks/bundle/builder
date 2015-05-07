@@ -1,13 +1,15 @@
 #!/bin/bash -le
 
-. $BRICKS_HOME/builder
+. $BRICKS_HOME/suexec
 
 execute() {
+  . $BRICKS_HOME/builder
+
   info 'Vendor project with Bundler'
-  pushd /opt/build/source
+  pushd /opt/workspace/source
     gem install bundler --conservative --no-ri --no-rdoc
     bundle install --deployment --without=development:test
   popd
 }
 
-execute
+suexec execute

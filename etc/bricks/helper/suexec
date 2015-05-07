@@ -1,0 +1,7 @@
+#!/bin/bash -le
+
+suexec() {
+  name=$1
+  export -f $name
+  su builder -c "bash -c $name"
+}

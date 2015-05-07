@@ -1,3 +1,5 @@
+require "fileutils"
+
 module Bricky
   module Bricks
     class Bundle < Base
@@ -14,8 +16,17 @@ module Bricky
 
       private
         def cached
-          digest = Digest::MD5.file('Gemfile').hexdigest
-          ["-v /tmp/bricky/cache/#{digest}:/opt/build/source/vendor/bundle"]
+          ["-v #{local_path}:/opt/workspace/source/vendor/bundle"]
+        end
+
+        def local_path
+          path = "/tmp/bricky/cache/#{digest}"
+          FileUtils::mkdir_p(path)
+          path
+        end
+
+        def digest
+          Digest::MD5.file('Gemfile').hexdigest
         end
     end
   end

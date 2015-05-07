@@ -1,19 +1,22 @@
 #!/bin/bash -e
 
-. $BRICKS_HOME/builder
+. $BRICKS_HOME/suexec
+chown -R builder. /builded
 
 execute() {
+  . $BRICKS_HOME/builder
+
   info 'Starting buildpackage'
-  pushd /opt/build/source
+  pushd /opt/workspace/source
     dpkg-buildpackage -b -rfakeroot
   popd
 
   info 'Moving deb files to volume'
-  rm -R /builded/*
-  mv /opt/build/*.deb /builded/
+  rm -Rf /builded/*
+  mv /opt/workspace/*.deb /builded/
 
   info 'Recreating local debian packages index'
   dpkg-scanpackages /builded/ | gzip > /builded/Packages.gz
 }
 
-execute
+suexec execute

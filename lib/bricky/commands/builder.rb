@@ -15,7 +15,7 @@ module Bricky
           code = command(image)
           puts format(code)
           
-          unless Kernel.exec(code)
+          unless system(code)
             puts "~~~~~~~~~~~ Problems building image ~~~~~~~~~~~".colorize(:white).on_red
             return false
           end

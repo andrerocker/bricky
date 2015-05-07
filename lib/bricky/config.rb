@@ -18,6 +18,10 @@ module Bricky
       File.expand_path("#{base_path}/etc/bricks", __FILE__)
     end
 
+    def hacker_path
+      File.expand_path("#{base_path}/etc/hacker", __FILE__)
+    end
+
     private
       def base_path
         "../../.."
