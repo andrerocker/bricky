@@ -4,7 +4,6 @@ bricky:
   bricks:
     mounts:
       source: .
-      bricky: ../bricky
     bundle:
       cache: true
     debian:
