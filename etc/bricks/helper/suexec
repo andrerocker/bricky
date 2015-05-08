@@ -3,5 +3,5 @@
 suexec() {
   name=$1
   export -f $name
-  su builder -c "bash -c $name"
+  su builder -c "bash -ec $name"
 }
