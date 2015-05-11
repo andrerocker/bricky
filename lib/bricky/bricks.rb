@@ -11,9 +11,9 @@ module Bricky
     extend self
 
     def resolve
-       Bricky.config.bricks.collect do |name, config|
-        resolve_and_initialize(name, config)
-       end.uniq << Bricky::Bricks::Helper.new({})
+      default_bricks + Bricky.config.bricks.collect do |name, config|
+       resolve_and_initialize(name, config)
+      end.uniq
     end
 
     def resolve_and_initialize(name, config)
@@ -21,5 +21,10 @@ module Bricky
       return Bricky::Bricks::Debian.new(config) if name.eql? "debian"
       return Bricky::Bricks::Mounts.new(config) if name.eql? "mounts"
     end
+
+    private
+      def default_bricks
+        [Bricky::Bricks::Helper.new({})]
+      end
   end
 end
