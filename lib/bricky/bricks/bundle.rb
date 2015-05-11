@@ -14,6 +14,10 @@ module Bricky
         "/bricks/bundle/builder"
       end
 
+      def environments
+        ["-e BRICKS_BUNDLE_WITHOUT#{config.fetch('without', 'development:test')}"]
+      end
+
       private
         def cached
           ["-v #{local_path}:/opt/workspace/source/vendor/bundle"]

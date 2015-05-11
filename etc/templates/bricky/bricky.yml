@@ -6,5 +6,6 @@ bricky:
       source: .
     bundle:
       cache: true
+      without: development:test
     debian:
       build: bricky/build

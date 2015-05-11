@@ -8,7 +8,7 @@ execute() {
   info 'Vendor project with Bundler'
   pushd /opt/workspace/source
     gem install bundler --conservative --no-ri --no-rdoc
-    bundle install --deployment --without=development:test
+    bundle install --deployment --without=$BRICKS_BUNDLE_WITHOUT
   popd
 }
 
