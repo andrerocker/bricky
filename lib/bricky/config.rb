@@ -22,6 +22,10 @@ module Bricky
       File.expand_path("#{base_path}/etc/hacker", __FILE__)
     end
 
+    def tmp_path
+      "#{ENV['HOME']}/.bricky"
+    end
+
     private
       def base_path
         "../../.."

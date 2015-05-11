@@ -24,7 +24,7 @@ module Bricky
         end
 
         def local_path
-          path = "/tmp/bricky/cache/#{digest}"
+          path = "#{Bricky.config.tmp_path}/cache/#{digest}"
           FileUtils::mkdir_p(path)
           path
         end
