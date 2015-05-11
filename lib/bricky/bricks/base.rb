@@ -10,6 +10,9 @@ module Bricky
       def entrypoint
       end
 
+      def environments
+      end
+
       private
         def bricks_path
           Bricky.config.bricks_path

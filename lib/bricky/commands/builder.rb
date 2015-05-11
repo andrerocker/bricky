@@ -25,14 +25,17 @@ module Bricky
 
         def command(image)
           bricks = Bricky::Bricks.resolve
+          envs = bricks.collect(&:environments).uniq.join(" ")
           arguments = bricks.collect(&:arguments).uniq.join(" ")
           entrypoints = bricks.collect(&:entrypoint).compact.uniq.join(" && ")
 
-          "docker run #{arguments} -i -t #{image.name} /bin/bash -l -c '#{entrypoints}'"
+          "docker run #{envs} #{arguments} -i -t #{image.name} /bin/bash -l -c '#{entrypoints}'"
         end
 
         def format(command)
-          command.split("-v ").join("\n\t -v ").split("-i ").join("\n\t -i ")
+          ["-v ", "-i ", "-e "].inject(command) do |result, param|
+            result.split(param).join("\n\t #{param}")
+          end
         end
     end
   end
