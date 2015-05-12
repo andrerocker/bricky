@@ -3,9 +3,7 @@ require "fileutils"
 
 module Bricky
   module Commands
-    module Bootstrap
-      extend self
-
+    class Bootstrap
       def execute
         puts "Boostraping images".colorize(:light_blue)
         images.each {|image| build(image)}
@@ -17,7 +15,7 @@ module Bricky
           hack = command(image.name, create_hack_image(image))
 
           [base, hack].each do |code|
-            puts "Processing #{name} image: ".colorize(:blue) + code
+            puts "Processing '#{image.name}' image: ".colorize(:blue) + code
             
             unless system(code)
               puts "~~~~~~~~~~~ Problems building image ~~~~~~~~~~~".colorize(:white).on_red

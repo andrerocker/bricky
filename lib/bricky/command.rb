@@ -10,17 +10,21 @@ module Bricky
   class Command < Thor
     desc :install, "copy configuration files"
     def install
-      Bricky::Commands::Install.new.execute
+      command = Bricky::Commands::Install.new
+      command.execute
     end
 
     desc :bootstrap, "bootstrap project images"
     def bootstrap
-      Bricky::Commands::Bootstrap.execute
+      command = Bricky::Commands::Bootstrap.new 
+      command.execute
     end
 
     desc :builder, "build project"
+    method_option :shell, :type => :boolean, :aliases => "-s"
     def builder
-      Bricky::Commands::Builder.execute
+      command = Bricky::Commands::Builder.new(options)
+      command.execute
     end
   end
 end

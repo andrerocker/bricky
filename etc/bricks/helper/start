@@ -1,0 +1,19 @@
+#!/bin/bash -le
+
+. $BRICKS_HOME/builder
+
+builder() {
+  eval $BRICKY_ENTRYPOINTS
+}
+
+start() {
+  if [[ "$BRICKY_ENTRYPOINTS_SHELL" == "true" ]]
+  then
+    export -f builder
+    /bin/bash
+  else
+    builder
+  fi
+}
+
+start

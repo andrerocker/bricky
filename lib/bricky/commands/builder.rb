@@ -2,8 +2,12 @@ require "bricky/bricks"
 
 module Bricky
   module Commands
-    module Builder
-      extend self
+    class Builder
+      attr_accessor :options
+
+      def initialize(options)
+        @options = options
+      end
 
       def execute
         puts "Building Project".colorize(:light_blue)
@@ -11,8 +15,8 @@ module Bricky
       end
 
       private
-        def build(image)
-          code = command(image)
+        def build(images)
+          code = command(images)
           puts format(code)
           
           unless system(code)
@@ -24,18 +28,32 @@ module Bricky
         end
 
         def command(image)
-          bricks = Bricky::Bricks.resolve
-          envs = bricks.collect(&:environments).uniq.join(" ")
-          arguments = bricks.collect(&:arguments).uniq.join(" ")
-          entrypoints = bricks.collect(&:entrypoint).compact.uniq.join(" && ")
-
-          "docker run #{envs} #{arguments} -i -t #{image.name} /bin/bash -l -c '#{entrypoints}'"
+          "docker run #{envs} #{arguments} -i -t #{image.name} /bricks/helper/start"
         end
 
         def format(command)
           ["-v ", "-i ", "-e "].inject(command) do |result, param|
             result.split(param).join("\n\t #{param}")
           end
+        end
+
+        def bricks
+          @bricks ||= Bricky::Bricks.resolve 
+        end
+
+        def envs
+          environments = bricks.collect(&:environments)
+          environments << "-e BRICKY_ENTRYPOINTS='#{entrypoints}'"
+          environments << "-e BRICKY_ENTRYPOINTS_SHELL=#{options.fetch("shell", false)}"
+          environments.join(" ")
+        end
+
+        def arguments
+          args = bricks.collect(&:arguments).uniq.join(" ")
+        end
+
+        def entrypoints
+          bricks.collect(&:entrypoint).compact.uniq.join(" && ")
         end
     end
   end
