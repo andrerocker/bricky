@@ -2,6 +2,7 @@ require "thor"
 require "ostruct"
 require "colorize"
 
+require "bricky/image"
 require "bricky/requirements"
 require "bricky/commands/base"
 require "bricky/commands/install"
@@ -36,7 +37,7 @@ module Bricky
       end
 
       def dispatch(name)
-        clazz = Kernel.const_get("Bricky::Commands::#{name.to_s.capitalize}")
+        clazz = Bricky::Commands.const_get("#{name.to_s.capitalize}")
         command = clazz.new(options)
         command.execute
       end

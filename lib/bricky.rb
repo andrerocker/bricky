@@ -1,5 +1,6 @@
-require "bricky/version"
+require "bricky/config"
 require "bricky/command"
+require "bricky/version"
 
 module Bricky
   extend self
