@@ -3,7 +3,7 @@ require "fileutils"
 
 module Bricky
   module Commands
-    class Bootstrap
+    class Bootstrap < Base
       def execute
         puts "Boostraping images".colorize(:light_blue)
         images.each {|image| build(image)}

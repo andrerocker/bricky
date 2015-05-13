@@ -2,13 +2,7 @@ require "bricky/bricks"
 
 module Bricky
   module Commands
-    class Builder
-      attr_accessor :options
-
-      def initialize(options)
-        @options = options
-      end
-
+    class Builder < Base
       def execute
         puts "Building Project".colorize(:light_blue)
         build(Bricky::Image.new("builder"))
