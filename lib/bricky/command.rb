@@ -2,6 +2,8 @@ require "thor"
 require "ostruct"
 require "colorize"
 
+require "bricky/requirements"
+require "bricky/commands/base"
 require "bricky/commands/install"
 require "bricky/commands/builder"
 require "bricky/commands/bootstrap"
@@ -10,21 +12,33 @@ module Bricky
   class Command < Thor
     desc :install, "install configuration files"
     def install
-      command = Bricky::Commands::Install.new
-      command.execute
+      dispatch(:install)
     end
 
     desc :bootstrap, "bootstrap builder images"
     def bootstrap
-      command = Bricky::Commands::Bootstrap.new 
-      command.execute
+      requirements.check_and_execute do
+        dispatch(:bootstrap)
+      end
     end
 
     desc :builder, "build project"
     method_option :shell, :type => :boolean, :aliases => "-s"
     def builder
-      command = Bricky::Commands::Builder.new(options)
-      command.execute
+      requirements.check_and_execute do
+        dispatch(:builder)
+      end
     end
+
+    private
+      def requirements
+        Bricky::Requirements.new
+      end
+
+      def dispatch(name)
+        clazz = Kernel.const_get("Bricky::Commands::#{name.to_s.capitalize}")
+        command = clazz.new(options)
+        command.execute
+      end
   end
 end
