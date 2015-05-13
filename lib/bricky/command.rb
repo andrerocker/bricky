@@ -8,13 +8,13 @@ require "bricky/commands/bootstrap"
 
 module Bricky
   class Command < Thor
-    desc :install, "copy configuration files"
+    desc :install, "install configuration files"
     def install
       command = Bricky::Commands::Install.new
       command.execute
     end
 
-    desc :bootstrap, "bootstrap project images"
+    desc :bootstrap, "bootstrap builder images"
     def bootstrap
       command = Bricky::Commands::Bootstrap.new 
       command.execute
