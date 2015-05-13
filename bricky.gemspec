@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Bricky::VERSION
   spec.authors       = ["andrerocker"]
   spec.email         = ["andre.souza@gmail.com"]
-  spec.summary       = %q{a new way to build and package applications}
-  spec.description   = %q{lets rocks}
-  spec.homepage      = "http://bricky.deploy42.com"
+  spec.summary       = %q{a smart way to build software packages}
+  spec.description   = %q{a smart way to build software packages}
+  spec.homepage      = "http://github.com/andrerocker/bricky"
   spec.license       = "MIT"
 
   spec.files         = Dir.glob("{bin,lib,etc}/**/*")
