@@ -9,10 +9,13 @@ module Bricky
 
     private
       def self.from_brickyfile
-        configuration = "#{Dir.pwd}/Brickyfile"
         if File.exists?(configuration)
           eval(open("#{Dir.pwd}/Brickyfile").read) 
         end
+      end
+
+      def self.configuration
+        "#{Dir.pwd}/Brickyfile"
       end
   end
 end
