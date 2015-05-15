@@ -4,10 +4,11 @@
 
 execute() {
   . $BRICKS_HOME/builder
+  export GEM_HOME=~/.gems
 
   info 'Vendor project with Bundler'
   pushd /opt/workspace/source
-    gem install bundler --conservative --no-ri --no-rdoc
+    command -v bundle > /dev/null 2>&1 || gem install --no-ri --no-rdoc bundler
     bundle install --deployment --without=$BRICKS_BUNDLE_WITHOUT
   popd
 }

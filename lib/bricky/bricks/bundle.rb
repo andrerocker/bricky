@@ -7,12 +7,12 @@ module Bricky
       def arguments
         scripts_path = "#{bricks_path}/bundle"
         results = ["-v #{scripts_path}:/bricks/bundle"]
-        results.push(cached) if config["cache"]
+        results.push(cached) if config['cache']
         results
       end
   
       def entrypoint
-        "/bricks/bundle/builder"
+        '/bricks/bundle/builder'
       end
 
       def environments
@@ -31,7 +31,7 @@ module Bricky
         end
 
         def digest
-          Digest::MD5.file('Gemfile').hexdigest
+          Digest::MD5.file('Gemfile.lock').hexdigest
         end
     end
   end
