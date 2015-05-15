@@ -23,7 +23,7 @@ module Bricky
     end
 
     def tmp_path
-      "#{ENV['HOME']}/.bricky"
+      "#{ENV['HOME']}/.bricky/#{name}"
     end
 
     private

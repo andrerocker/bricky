@@ -35,7 +35,7 @@ module Bricky
         end
 
         def create_hack_image(image)
-          hack_path = FileUtils::mkdir_p("#{Bricky.config.tmp_path}/containers/#{Bricky.config.name}").first
+          hack_path = FileUtils::mkdir_p("#{Bricky.config.tmp_path}/patch/").first
           File.open("#{hack_path}/Dockerfile", "w") { |file| file.write(parse_hack_template(image)) }
           hack_path
         end
