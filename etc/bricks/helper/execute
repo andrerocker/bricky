@@ -1,0 +1,23 @@
+#!/bin/bash -le
+
+label() {
+  name=$1
+  while read LINE
+  do
+    info_bricks "$name" "$LINE"
+  done
+}
+
+stop_if_error() {
+  if test ${PIPESTATUS[0]} -ne 0
+  then
+    exit 1;
+  fi
+}
+
+execute() {
+  function_name=$1
+  $function_name 2>&1 | label $function_name; stop_if_error
+}
+
+export -f label stop_if_error execute

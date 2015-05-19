@@ -1,7 +1,9 @@
 #!/bin/bash -le
 
+. $BRICKS_HOME/execute
+
 suexec() {
   name=$1
   export -f $name
-  su builder -c "bash -ec $name"
+  su builder -m -c "bash -ec 'execute $name'"
 }

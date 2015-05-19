@@ -3,9 +3,7 @@
 . $BRICKS_HOME/suexec
 chown -R builder. /builded
 
-execute() {
-  . $BRICKS_HOME/builder
-
+debian() {
   info 'Starting buildpackage'
   pushd /opt/workspace/source
     dpkg-buildpackage -b -rfakeroot
@@ -19,4 +17,4 @@ execute() {
   dpkg-scanpackages /builded/ | gzip > /builded/Packages.gz
 }
 
-suexec execute
+suexec debian

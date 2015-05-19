@@ -4,3 +4,11 @@ info() {
   message=$1;
   echo -e "\033[32m${message}\033[0m";
 }
+
+info_bricks() {
+  brick=$1;
+  message=$2;
+  echo -e "\033[32m${brick}\033[0m: ${message}";
+}
+
+export -f info info_bricks

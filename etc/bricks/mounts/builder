@@ -1,8 +1,9 @@
 #!/bin/bash -le
 
 . $BRICKS_HOME/builder
+. $BRICKS_HOME/execute
 
-execute() {
+mounts() {
   info 'Building workspace'
 
   pushd /bricks/mounts/volumes/
@@ -12,4 +13,4 @@ execute() {
   popd
 }
 
-execute
+execute mounts

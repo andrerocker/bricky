@@ -2,8 +2,7 @@
 
 . $BRICKS_HOME/suexec
 
-execute() {
-  . $BRICKS_HOME/builder
+bundler() {
   export GEM_HOME=~/.gems
 
   info 'Vendor project with Bundler'
@@ -13,4 +12,4 @@ execute() {
   popd
 }
 
-suexec execute
+suexec bundler
