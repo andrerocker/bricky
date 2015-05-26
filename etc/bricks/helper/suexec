@@ -5,5 +5,21 @@
 suexec() {
   name=$1
   export -f $name
+
+  if [[ $BRICKS_LINUX == "true" ]]
+  then
+    execute_linux $name
+  else
+    execute_other $name
+  fi
+}
+
+execute_other() {
+  name=$1
+  execute $name
+}
+
+execute_linux() {
+  name=$1
   su builder -m -c "bash -ec 'execute $name'"
 }

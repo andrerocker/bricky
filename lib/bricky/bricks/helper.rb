@@ -6,8 +6,14 @@ module Bricky
       end
 
       def environments
-        ["-e BRICKS_HOME=/bricks/helper"]
+        ["-e BRICKS_LINUX=#{linux}",
+          "-e BRICKS_HOME=/bricks/helper"]
       end
+
+      private
+        def linux
+          RUBY_PLATFORM.include?("linux")
+        end
     end
   end
 end
