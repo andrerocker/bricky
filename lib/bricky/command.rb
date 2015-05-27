@@ -16,17 +16,11 @@ module Bricky
       dispatch(:install)
     end
 
-    desc :bootstrap, "bootstrap builder images"
-    def bootstrap
-      requirements.check_and_execute do
-        dispatch(:bootstrap)
-      end
-    end
-
     desc :builder, "build project"
     method_option :shell, :type => :boolean, :aliases => "-s"
     def builder
       requirements.check_and_execute do
+        dispatch(:bootstrap)
         dispatch(:builder)
       end
     end
