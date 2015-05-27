@@ -7,6 +7,9 @@ module Bricky
         self.config = config
       end
 
+      def arguments
+      end
+
       def entrypoint
       end
 
