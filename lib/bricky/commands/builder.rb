@@ -44,7 +44,7 @@ module Bricky
       end
 
       def arguments
-        args = bricks.collect(&:arguments).uniq.join(' ')
+        bricks.collect(&:arguments).uniq.join(' ')
       end
 
       def entrypoints
