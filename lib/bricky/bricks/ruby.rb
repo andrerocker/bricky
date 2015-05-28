@@ -3,7 +3,7 @@ module Bricky
     class Ruby < Helper
       def arguments
       end
-  
+
       def entrypoint
       end
     end
