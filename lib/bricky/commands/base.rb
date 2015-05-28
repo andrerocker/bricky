@@ -8,6 +8,10 @@ module Bricky
       def initialize(options)
         @options = options
       end
+
+      def logger
+        Bricky.logger
+      end
     end
   end
 end

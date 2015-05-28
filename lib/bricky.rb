@@ -1,4 +1,5 @@
 require "bricky/config"
+require "bricky/logger"
 require "bricky/command"
 require "bricky/version"
 
@@ -11,5 +12,9 @@ module Bricky
 
   def config
     @config ||= Bricky::Config.new
+  end
+
+  def logger
+    @logger ||= Bricky::Logger.new 
   end
 end

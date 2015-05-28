@@ -5,12 +5,12 @@ module Bricky
   module Commands
     class Bootstrap < Base
       def execute
-        puts "Boostraping images".colorize(:light_blue)
+        logger.important "Boostraping images"
 
         if need_rebuild?
           build(image)
         else
-          puts "Skipping build process".colorize(:blue)
+          logger.message "Skipping build process"
         end
       end
 
@@ -20,10 +20,10 @@ module Bricky
           hack = command(image.name, create_hack_image(image))
 
           [base, hack].each do |code|
-            puts "Processing '#{image.name}' image: ".colorize(:blue) + code
+            logger.message "Processing '#{image.name}' image: ", code
             
             unless system(code)
-              puts "~~~~~~~~~~~ Problems building image ~~~~~~~~~~~".colorize(:white).on_red
+              logger.failure "~~~~~~~~~~~ Problems building image ~~~~~~~~~~~"
               return false
             end
           end

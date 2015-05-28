@@ -2,6 +2,7 @@ module Bricky
   module Commands
     class Install < Base
       def execute
+        logger.important 'Setup bricky configuration files'
         installer = InstallThor.new
         installer.execute
       end 
@@ -11,13 +12,12 @@ module Bricky
         include Thor::Actions
 
         def execute
-          puts "Setup bricky configuration files".colorize(:light_blue)
-          directory "bricky"
-          copy_file "Brickyfile"
+          directory 'bricky'
+          copy_file 'Brickyfile'
         end
 
         def self.source_root
-          File.expand_path("../../../../etc/templates", __FILE__)
+          File.expand_path('../../../../etc/templates', __FILE__)
         end
       end
     end

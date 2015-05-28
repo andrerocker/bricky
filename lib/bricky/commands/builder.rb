@@ -4,17 +4,17 @@ module Bricky
   module Commands
     class Builder < Base
       def execute
-        puts "Building Project".colorize(:light_blue)
+        logger.important 'Building Project'
         build(Bricky::Image.new("builder"))
       end
 
       private
         def build(images)
           code = command(images)
-          puts format(code)
+          logger.debug format(code)
           
           unless system(code)
-            puts "~~~~~~~~~~~ Problems building image ~~~~~~~~~~~".colorize(:white).on_red
+            logger.failure '~~~~~~~~~~~ Problems building image ~~~~~~~~~~~'
             return false
           end
 
@@ -26,7 +26,7 @@ module Bricky
         end
 
         def format(command)
-          ["-v ", "-i ", "-e "].inject(command) do |result, param|
+          ['-v ', '-i ', '-e '].inject(command) do |result, param|
             result.split(param).join("\n\t #{param}")
           end
         end
@@ -43,11 +43,11 @@ module Bricky
         end
 
         def arguments
-          args = bricks.collect(&:arguments).uniq.join(" ")
+          args = bricks.collect(&:arguments).uniq.join(' ')
         end
 
         def entrypoints
-          bricks.collect(&:entrypoint).compact.uniq.join(" && ")
+          bricks.collect(&:entrypoint).compact.uniq.join(' && ')
         end
     end
   end
