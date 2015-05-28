@@ -6,7 +6,7 @@ module Bricky
     class Bootstrap < Base
       def execute
         puts 'Boostraping images'.colorize(:light_blue)
-        images.each {|image| build(image)}
+        images.each { |image| build(image) }
       end
 
       private
@@ -32,7 +32,7 @@ module Bricky
       end
 
       def images
-        ['builder'].collect {|image| Bricky::Image.new(image) }
+        ['builder'].collect { |image| Bricky::Image.new(image) }
       end
 
       def create_hack_image(image)
