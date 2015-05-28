@@ -4,10 +4,10 @@ module Bricky
   class Logger < ::Logger
     def initialize
       super(STDOUT)
+      self.level = INFO
       self.formatter = proc do |severity, datetime, progname, msg|
         "#{msg}\n"
       end
-      self.level = INFO
     end
 
     def message(*args)
