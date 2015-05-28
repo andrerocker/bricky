@@ -3,7 +3,7 @@ module Bricky
     def check_and_execute
       if pending_requirements
         print "Make sure you have the following requirements: " 
-        puts requirements.join(',').colorize(:red)
+        puts requirements.join(', ').colorize(:red)
       else
         yield          
       end
@@ -11,7 +11,9 @@ module Bricky
 
     private
       def requirements
-        ["docker"]
+        requirements = ["docker"]
+        requirements << "boot2docker" unless RUBY_PLATFORM.include?("linux") 
+        requirements
       end
   
       def pending_requirements
