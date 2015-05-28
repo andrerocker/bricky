@@ -1,5 +1,5 @@
-require "digest"
-require "fileutils"
+require 'digest'
+require 'fileutils'
 
 module Bricky
   module Bricks
@@ -10,7 +10,7 @@ module Bricky
         results.push(cached) if config['cache']
         results
       end
-  
+
       def entrypoint
         '/bricks/bundle/builder'
       end
@@ -20,19 +20,20 @@ module Bricky
       end
 
       private
-        def cached
-          ["-v #{local_path}:/opt/workspace/source/vendor/bundle"]
-        end
 
-        def local_path
-          path = "#{Bricky.config.tmp_path}/cache/#{digest}"
-          FileUtils::mkdir_p(path)
-          path
-        end
+      def cached
+        ["-v #{local_path}:/opt/workspace/source/vendor/bundle"]
+      end
 
-        def digest
-          Digest::MD5.file('Gemfile.lock').hexdigest
-        end
+      def local_path
+        path = "#{Bricky.config.tmp_path}/cache/#{digest}"
+        FileUtils::mkdir_p(path)
+        path
+      end
+
+      def digest
+        Digest::MD5.file('Gemfile.lock').hexdigest
+      end
     end
   end
 end
