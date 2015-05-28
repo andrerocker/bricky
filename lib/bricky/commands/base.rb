@@ -1,4 +1,4 @@
-require "bricky/bricks"
+require 'bricky/bricks'
 
 module Bricky
   module Commands
