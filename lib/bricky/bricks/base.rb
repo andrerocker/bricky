@@ -14,9 +14,10 @@ module Bricky
       end
 
       private
-        def bricks_path
-          Bricky.config.bricks_path
-        end
+
+      def bricks_path
+        Bricky.config.bricks_path
+      end
     end
   end
 end
