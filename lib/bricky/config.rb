@@ -14,6 +14,10 @@ module Bricky
       self.bricks = config["bricks"]
     end
 
+    def cache_path
+      "#{tmp_path}/cache"
+    end
+
     def bricks_path
       File.expand_path("#{base_path}/etc/bricks", __FILE__)
     end

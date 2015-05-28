@@ -6,7 +6,12 @@ module Bricky
     class Bootstrap < Base
       def execute
         puts "Boostraping images".colorize(:light_blue)
-        images.each {|image| build(image)}
+
+        if need_rebuild?
+          build(image)
+        else
+          puts "Skipping build process".colorize(:blue)
+        end
       end
 
       private
@@ -23,6 +28,7 @@ module Bricky
             end
           end
 
+          make_cache!
           true
         end
 
@@ -30,8 +36,8 @@ module Bricky
           "docker build -t #{template_name} #{image_path}"
         end
 
-        def images
-          ["builder"].collect {|image| Bricky::Image.new(image) }
+        def image
+          @image ||= Bricky::Image.new("builder")
         end
 
         def create_hack_image(image)
@@ -51,6 +57,25 @@ module Bricky
           end
 
           parser.result(variables.get_binding)
+        end
+
+        def cache_file
+          "#{Bricky.config.cache_path}/builder"
+        end
+
+        def need_rebuild?
+          cache_digest = open(cache_file).read rescue "dummy"
+          image_digest = Digest::MD5.file(image.full_path).hexdigest
+
+          return false if cache_digest.eql?(image_digest)
+          true  
+        end
+
+        def make_cache!
+          FileUtils::mkdir_p(Bricky.config.cache_path)
+          open(cache_file, 'w') do |file|
+            file.write Digest::MD5.file(image.full_path).hexdigest
+          end
         end
     end
   end

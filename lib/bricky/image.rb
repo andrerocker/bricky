@@ -8,6 +8,10 @@ module Bricky
       self.path = format_path(image)
     end
 
+    def full_path
+      "#{path}/Dockerfile"
+    end
+
     private
       def format_name(image)
         "#{Bricky.config.name}/#{image}"
