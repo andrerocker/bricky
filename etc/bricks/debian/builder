@@ -12,9 +12,6 @@ debian() {
   info 'Moving deb files to volume'
   rm -Rf /builded/*
   mv /opt/workspace/*.deb /builded/
-
-  info 'Recreating local debian packages index'
-  dpkg-scanpackages /builded/ | gzip > /builded/Packages.gz
 }
 
 suexec debian
