@@ -1,3 +1,6 @@
+require "thor"
+require "thor/group"
+
 module Bricky
   module Commands
     class Install < Base

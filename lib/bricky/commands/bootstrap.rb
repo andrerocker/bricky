@@ -10,7 +10,7 @@ module Bricky
         if need_rebuild?
           build(image)
         else
-          logger.message "Skipping build process"
+          logger.message "Skipping bootstrap process"
         end
       end
 

@@ -7,6 +7,7 @@ module Bricky
       self.formatter = proc do |severity, datetime, progname, msg|
         "#{msg}\n"
       end
+      self.level = INFO
     end
 
     def message(*args)
