@@ -7,7 +7,7 @@ bricky:
       ignore:
         - source/log
         - source/tmp
-        - source/.git
+        - source/vendor/bundle
     bundle:
       cache: true
       without: development:test
