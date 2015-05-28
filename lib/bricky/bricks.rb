@@ -16,15 +16,13 @@ module Bricky
       end.uniq
     end
 
-    def resolve_and_initialize(name, config)
-      return Bricky::Bricks::Bundle.new(config) if name.eql? "bundle"
-      return Bricky::Bricks::Debian.new(config) if name.eql? "debian"
-      return Bricky::Bricks::Mounts.new(config) if name.eql? "mounts"
-    end
-
     private
       def default_bricks
         [Bricky::Bricks::Helper.new({})]
+      end
+
+      def resolve_and_initialize(name, config)
+        Bricky::Bricks.const_get("#{name.to_s.capitalize}").new(config)
       end
   end
 end
