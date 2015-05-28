@@ -20,8 +20,7 @@ module Bricky
     method_option :shell, :type => :boolean, :aliases => "-s"
     def builder
       requirements.check_and_execute do
-        dispatch(:bootstrap)
-        dispatch(:builder)
+        dispatch(:bootstrap) && dispatch(:builder)
       end
     end
 
@@ -32,8 +31,7 @@ module Bricky
 
       def dispatch(name)
         clazz = Bricky::Commands.const_get("#{name.to_s.capitalize}")
-        command = clazz.new(options)
-        command.execute
+        clazz.new(options).execute
       end
   end
 end
