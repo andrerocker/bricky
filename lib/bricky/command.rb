@@ -5,8 +5,9 @@ require "colorize"
 require "bricky/image"
 require "bricky/requirements"
 require "bricky/commands/base"
-require "bricky/commands/install"
 require "bricky/commands/builder"
+require "bricky/commands/install"
+require "bricky/commands/version"
 require "bricky/commands/bootstrap"
 
 module Bricky
@@ -22,6 +23,11 @@ module Bricky
       requirements.check_and_execute do
         dispatch(:bootstrap) && dispatch(:builder)
       end
+    end
+
+    desc :version, "bricky version"
+    def version
+      dispatch(:version)
     end
 
     private
