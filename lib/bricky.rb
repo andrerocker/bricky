@@ -2,6 +2,7 @@ require "bricky/config"
 require "bricky/logger"
 require "bricky/command"
 require "bricky/version"
+require "bricky/executor"
 
 module Bricky
   extend self

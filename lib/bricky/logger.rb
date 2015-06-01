@@ -22,6 +22,10 @@ module Bricky
       info colorize_first(args, :light_blue)
     end
 
+    def normal(*args)
+      info colorize_first(args, :green)
+    end
+
     private
       def colorize_first(args, color)
         [args.first.colorize(color), args[1..-1]].join

@@ -13,7 +13,7 @@ module Bricky
           code = command(images)
           logger.debug format(code)
           
-          unless system(code)
+          unless Bricky::Executor.system(code)
             logger.failure '~~~~~~~~~~~ Problems building image ~~~~~~~~~~~'
             return false
           end

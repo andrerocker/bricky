@@ -22,7 +22,7 @@ module Bricky
           [base, hack].each do |code|
             logger.message "Processing '#{image.name}' image: ", code
             
-            unless system(code)
+            unless Bricky::Executor.popen("builder", code)
               logger.failure "~~~~~~~~~~~ Problems building image ~~~~~~~~~~~"
               return false
             end
