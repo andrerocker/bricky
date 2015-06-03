@@ -1,3 +1,4 @@
+require "fileutils"
 require "bricky/bricks"
 
 module Bricky
@@ -10,6 +11,7 @@ module Bricky
 
       private
         def build(images)
+          attach_shims
           code = command(images)
           logger.debug format(code)
           
@@ -48,6 +50,12 @@ module Bricky
 
         def entrypoints
           bricks.collect(&:entrypoint).compact.uniq.join(' && ')
+        end
+
+        def attach_shims
+          if not File.exist? Bricky.config.shim_path
+            FileUtils.symlink(Bricky.config.bricks_path, Bricky.config.shim_path)
+          end
         end
     end
   end

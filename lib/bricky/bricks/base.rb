@@ -18,7 +18,7 @@ module Bricky
 
       private
         def bricks_path
-          Bricky.config.bricks_path
+          Bricky.config.shim_path
         end
     end
   end

@@ -30,6 +30,10 @@ module Bricky
       "#{ENV['HOME']}/.bricky/#{name}"
     end
 
+    def shim_path
+      "#{tmp_path}/shim"
+    end
+
     private
       def base_path
         "../../.."
