@@ -19,8 +19,11 @@ module Bricky
 
     desc :builder, "build project"
     method_option :shell, :type => :boolean, :aliases => "-s"
+    method_option :debugger, :type => :boolean, :aliases => "-d"
     method_option :"just-image", :type => :boolean, :aliases => "-i"
     def builder
+      Bricky.logger.level = Logger::DEBUG if options['debugger']
+
       requirements.check_and_execute do
         if options['just-image']
           dispatch(:bootstrap)
