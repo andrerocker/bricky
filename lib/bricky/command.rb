@@ -19,9 +19,14 @@ module Bricky
 
     desc :builder, "build project"
     method_option :shell, :type => :boolean, :aliases => "-s"
+    method_option :"just-image", :type => :boolean, :aliases => "-i"
     def builder
       requirements.check_and_execute do
-        dispatch(:bootstrap) && dispatch(:builder)
+        if options['just-image']
+          dispatch(:bootstrap)
+        else
+          dispatch(:bootstrap) && dispatch(:builder)
+        end
       end
     end
 
