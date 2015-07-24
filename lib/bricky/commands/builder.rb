@@ -24,7 +24,8 @@ module Bricky
         end
 
         def command(image)
-          "docker run --rm #{envs} #{arguments} -i -t #{image.name} /bricks/helper/start"
+          iteractive_hacks = options['shell'] ? "-i -t" : ""
+          "docker run --rm #{envs} #{arguments} #{iteractive_hacks} #{image.name} /bricks/helper/start"
         end
 
         def format(command)

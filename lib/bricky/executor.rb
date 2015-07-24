@@ -17,7 +17,7 @@ module Bricky
 
     private
       def logger
-        @logger ||= Bricky::Logger.new
+        Bricky.logger
       end
   end
 end
