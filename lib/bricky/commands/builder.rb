@@ -24,7 +24,7 @@ module Bricky
         end
 
         def command(image)
-          "docker run #{envs} #{arguments} -i -t #{image.name} /bricks/helper/start"
+          "docker run --rm #{envs} #{arguments} -i -t #{image.name} /bricks/helper/start"
         end
 
         def format(command)
