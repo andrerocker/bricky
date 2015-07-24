@@ -54,9 +54,9 @@ module Bricky
         end
 
         def attach_shims
-          if not File.exist? Bricky.config.shim_path
-            FileUtils.symlink(Bricky.config.bricks_path, Bricky.config.shim_path)
-          end
+          shim = Bricky.config.shim_path
+          FileUtils.safe_unlink(shim) if File.exist?(shim)
+          FileUtils.symlink(Bricky.config.bricks_path, shim)
         end
     end
   end
