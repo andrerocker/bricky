@@ -6,12 +6,7 @@ module Bricky
     class Bootstrap < Base
       def execute
         logger.important "Boostraping images"
-
-        if need_rebuild?
-          build(image)
-        else
-          logger.message "Skipping bootstrap process"
-        end
+        build(image)
       end
 
       private
@@ -28,7 +23,6 @@ module Bricky
             end
           end
 
-          make_cache!
           true
         end
 
@@ -61,21 +55,6 @@ module Bricky
 
         def cache_file
           "#{Bricky.config.cache_path}/builder"
-        end
-
-        def need_rebuild?
-          cache_digest = open(cache_file).read rescue "dummy"
-          image_digest = Digest::MD5.file(image.full_path).hexdigest
-
-          return false if cache_digest.eql?(image_digest)
-          true  
-        end
-
-        def make_cache!
-          FileUtils::mkdir_p(Bricky.config.cache_path)
-          open(cache_file, 'w') do |file|
-            file.write Digest::MD5.file(image.full_path).hexdigest
-          end
         end
     end
   end
