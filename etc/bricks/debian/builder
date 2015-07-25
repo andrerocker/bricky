@@ -11,7 +11,7 @@ debian() {
 
   info 'Moving deb files to volume'
   rm -Rf /builded/*
-  mv /opt/workspace/*.deb /builded/
+  mv /opt/workspace/*.deb /opt/workspace/*.changes  /builded/
 }
 
 suexec debian
