@@ -5,8 +5,6 @@ bricky:
     mounts:
       source: .
       ignore:
-        - source/log
-        - source/tmp
         - source/vendor/bundle
     bundle:
       cache: true
