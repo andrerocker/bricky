@@ -10,7 +10,6 @@ debian() {
   popd
 
   info 'Moving deb files to volume'
-  rm -Rf /builded/*
   mv /opt/workspace/*.deb /opt/workspace/*.changes  /builded/
 }
 
