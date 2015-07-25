@@ -27,7 +27,7 @@ module Bricky
     end
 
     def tmp_path
-      "#{ENV['HOME']}/.bricky/#{name}"
+      "#{ENV['HOME']}/.bricky/#{Bricky::VERSION}/#{name}"
     end
 
     def shim_path
