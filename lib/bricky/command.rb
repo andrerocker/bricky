@@ -24,7 +24,7 @@ module Bricky
     def builder
       Bricky.logger.level = Logger::DEBUG if options['debugger']
 
-      requirements.check_and_execute do
+      exit 1 unless requirements.check_and_execute do
         if options['just-image']
           dispatch(:bootstrap)
         else
