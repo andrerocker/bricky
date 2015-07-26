@@ -1,5 +1,6 @@
 require "etc"
 require "fileutils"
+require "bricky/bricks"
 
 module Bricky
   module Commands
@@ -16,7 +17,7 @@ module Bricky
 
           [base, hack].each do |code|
             logger.message "Processing '#{image.name}' image: ", code
-            
+
             unless Bricky::Executor.popen("builder", code)
               logger.failure "~~~~~~~~~~~ Problems building image ~~~~~~~~~~~"
               return false
@@ -35,8 +36,8 @@ module Bricky
         end
 
         def create_hack_image(image)
-          hack_path = FileUtils::mkdir_p("#{Bricky.config.tmp_path}/patch/").first
-          File.open("#{hack_path}/Dockerfile", "w") { |file| file.write(parse_hack_template(image)) }
+          hacked_docker_image = parse_hack_template(image) + append_to_template
+          File.open("#{hack_path}/Dockerfile", "w") { |file| file.write(hacked_docker_image) }
           hack_path
         end
 
@@ -55,6 +56,18 @@ module Bricky
 
         def cache_file
           "#{Bricky.config.cache_path}/builder"
+        end
+
+        def append_to_template
+          bricks.collect { |brick| brick.bootstrap(hack_path) }.flatten.join("\n")
+        end
+
+        def hack_path
+          FileUtils::mkdir_p("#{Bricky.config.tmp_path}/patch/").first
+        end
+
+        def bricks
+          @bricks ||= Bricky::Bricks.resolve
         end
     end
   end

@@ -16,6 +16,9 @@ module Bricky
       def environments
       end
 
+      def bootstrap(bootstrap_path)
+      end
+
       private
         def bricks_path
           Bricky.config.shim_path
