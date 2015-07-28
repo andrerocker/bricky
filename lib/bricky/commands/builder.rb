@@ -20,6 +20,8 @@ module Bricky
             return false
           end
 
+          logger.normal '~~~~~~~~~~~ Success \0/ ~~~~~~~~~~~'
+
           true
         end
 
