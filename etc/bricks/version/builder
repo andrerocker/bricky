@@ -1,0 +1,15 @@
+#!/bin/bash -e
+
+. $BRICKS_HOME/suexec
+
+version() {
+    last_tag = `git describe --tags`
+    commit   = `git log -1 --pretty=tformat:'%H'  #{tag}`.chomp
+    author   = `git log -1 --pretty=tformat:'%an' #{tag}`.chomp
+    message  = `git log -1 --pretty=tformat:'%s'  #{tag}`.chomp
+    tag_date = `git log -1 --pretty=tformat:'%ad' #{tag}`.chomp
+
+    /opt/workspace/source
+}
+
+suexec version
