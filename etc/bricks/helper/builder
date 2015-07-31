@@ -2,13 +2,13 @@
 
 info() {
   message=$1;
-  echo -e "\033[32m${message}\033[0m";
+  echo -e "\n\033[32m${message}\033[0m\n";
 }
 
 info_bricks() {
   brick=$1;
   message=$2;
-  echo -e "\033[32m${brick}\033[0m: ${message}";
+  printf "\033[32m%8s\033[0m: ${message}\n" $brick;
 }
 
 export -f info info_bricks
