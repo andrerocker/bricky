@@ -3,13 +3,32 @@
 . $BRICKS_HOME/suexec
 
 version() {
-    last_tag = `git describe --tags`
-    commit   = `git log -1 --pretty=tformat:'%H'  #{tag}`.chomp
-    author   = `git log -1 --pretty=tformat:'%an' #{tag}`.chomp
-    message  = `git log -1 --pretty=tformat:'%s'  #{tag}`.chomp
-    tag_date = `git log -1 --pretty=tformat:'%ad' #{tag}`.chomp
+    info 'Processing version file'
+    pushd /opt/workspace/source
+      last_tag=$(git describe --tags)
+      commit=$(git log -1 --pretty=tformat:'%H'  $last_tag)
+      author=$(git log -1 --pretty=tformat:'%an' $last_tag)
+      message=$(git log -1 --pretty=tformat:'%s'  $last_tag)
+      tag_date=$(git log -1 --pretty=tformat:'%ad' $last_tag)
+      
+      echo "tag = $last_tag"
+      echo "date = $tag_date"
+      echo "author = $author"
+      echo "commit = $commit"
+      echo "message = $message"
+      
+      generated_version="
+        {
+           \"tag\": \"$last_tag\",
+           \"commit\": \"$commit\",
+           \"author\": \"$autor\",
+           \"message\": \"$author\",
+           \"tag_date\": \"$tag_date\"
+        }
+      "
 
-    /opt/workspace/source
+      echo $generated_version > $BRICKS_VERSION_OUTPUT
+    popd
 }
 
 suexec version

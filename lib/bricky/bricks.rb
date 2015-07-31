@@ -6,6 +6,7 @@ require "bricky/bricks/rails"
 require "bricky/bricks/bundle"
 require "bricky/bricks/debian"
 require "bricky/bricks/mounts"
+require "bricky/bricks/version"
 
 module Bricky
   module Bricks
