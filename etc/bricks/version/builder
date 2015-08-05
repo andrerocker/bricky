@@ -21,8 +21,8 @@ version() {
         {
            \"tag\": \"$last_tag\",
            \"commit\": \"$commit\",
-           \"author\": \"$autor\",
-           \"message\": \"$author\",
+           \"author\": \"$author\",
+           \"message\": \"$message\",
            \"tag_date\": \"$tag_date\"
         }
       "
