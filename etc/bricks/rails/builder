@@ -8,7 +8,12 @@ rails() {
         info 'Rails, assets precompile!'
 
         pushd /opt/workspace/source
-             bundle exec rake assets:clean assets:precompile
+          if [ "$(ls -A public/assets)" ]
+          then
+              info 'using cached assets :p'
+          else
+              bundle exec rake assets:precompile
+          fi
         popd
     fi
 }
