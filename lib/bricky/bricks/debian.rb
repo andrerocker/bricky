@@ -4,7 +4,6 @@ module Bricky
   module Bricks
     class Debian < Base
       def arguments
-        builded_path = File.expand_path(ENV.fetch('BRICKY_PACKAGE_OUTPUT_PATH', config['build']))
         scripts_path = "#{bricks_path}/debian"
 
         %W(-v #{builded_path}:/builded
@@ -13,6 +12,10 @@ module Bricky
 
       def entrypoint
         "/bricks/debian/builder"
+      end
+
+      def environments
+        ["-e BRICKS_DEBIAN_OUTPUT_PACKAGE_PATH=#{File.expand_path(builded_path)}"]
       end
 
       def bootstrap(bootstrap_path)
@@ -26,6 +29,10 @@ module Bricky
       end
 
       private
+      def builded_path
+        File.expand_path(ENV.fetch('BRICKY_PACKAGE_OUTPUT_PATH', config['build']))
+      end
+
       def skip_cached_file(src, dest)
         return false if not File.exists?(dest)
 
