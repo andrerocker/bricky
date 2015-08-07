@@ -16,8 +16,8 @@ shell() {
     export -f builder
     export -f builder_source
 
-    info "\n\nType 'builder' to build the project :p"
-    info "Type 'builder_source' to see the bricks compilation :p\n\n"
+    show "\n\nType 'builder' to build the project :p"
+    show "Type 'builder_source' to see the bricks compilation :p\n\n"
     /bin/bash
 }
 

@@ -5,6 +5,11 @@ info() {
   echo -e "\n\033[32m${message}\033[0m\n";
 }
 
+show() {
+  message=$1;
+  echo -e "\033[32m${message}\033[0m";
+}
+
 info_bricks() {
   brick=$1;
   message=$2;
