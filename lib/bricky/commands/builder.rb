@@ -20,7 +20,9 @@ module Bricky
             return false
           end
 
-          logger.normal '~~~~~~~~~~~ Success \0/ ~~~~~~~~~~~'
+          unless options['shell']
+            logger.normal '~~~~~~~~~~~ Success \0/ ~~~~~~~~~~~'
+          end
 
           true
         end
