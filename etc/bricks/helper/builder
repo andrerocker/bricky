@@ -1,19 +1,27 @@
 #!/bin/bash -le
 
 info() {
-  message=$1;
-  echo -e "\n\033[32m${message}\033[0m\n";
+    message=$1;
+    echo -e "\n\033[32m${message}\033[0m\n";
 }
 
 show() {
-  message=$1;
-  echo -e "\033[32m${message}\033[0m";
+    message=$1;
+    echo -e "\033[32m${message}\033[0m";
 }
 
 info_bricks() {
-  brick=$1;
-  message=$2;
-  printf "\033[32m%8s\033[0m: ${message}\n" $brick;
+    brick=$1;
+    message=$2;
+    printf "\033[32m%8s\033[0m: ${message}\n" $brick;
 }
 
-export -f info info_bricks
+pushd() {
+    command pushd "$@" > /dev/null
+}
+
+popd() {
+    command popd "$@" > /dev/null
+}
+
+export -f info info_bricks pushd popd

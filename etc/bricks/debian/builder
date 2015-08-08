@@ -3,15 +3,36 @@
 . $BRICKS_HOME/suexec
 chown -R builder. /builded
 
+debdch() {
+    info 'Building package changelog'
+    raw_tag=$(git tag | grep v | sort -t. -k 1.2,1n -k 2,2n -k 3,3n -k 4,4n | tail -1)
+    use_tag=$(echo $raw_tag | tr -d 'v')
+    build_number="$(ls /builded/*$use_tag+build.*deb 2> /dev/null | wc -l)"
+    
+    if [ $build_number -gt 0 ]
+    then
+        lastest=$(ls /builded/*$use_tag+build.*deb | sort | tail -1)
+        build_number=$(echo $lastest | awk 'BEGIN{FS="build\."}{print $2}' | awk 'BEGIN{FS="_all.deb"} {print $1}')
+        build_number=$(expr $build_number + 1)
+    fi
+
+    tag="$use_tag+build.$build_number"
+    echo "version: $tag"
+    echo "distribution: unstable"
+    
+    dch --distribution 'unstable' --newVersion "$tag" 'Builded by bricky.'
+}
+
 debian() {
   info 'Starting buildpackage'
-  pushd /opt/workspace/source
-    dpkg-buildpackage -b -rfakeroot
-  popd
+  dpkg-buildpackage -b -rfakeroot
 
   info 'Moving deb files to volume'
   mv /opt/workspace/*.deb /opt/workspace/*.changes  /builded/
   echo "Builded package available on: $BRICKS_DEBIAN_OUTPUT_PACKAGE_PATH"
 }
 
-suexec debian
+pushd /opt/workspace/source
+  suexec debdch
+  suexec debian
+popd
