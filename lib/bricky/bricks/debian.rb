@@ -15,7 +15,8 @@ module Bricky
       end
 
       def environments
-        ["-e BRICKS_DEBIAN_OUTPUT_PACKAGE_PATH=#{File.expand_path(builded_path)}"]
+        ["-e BRICKS_DEBIAN_OUTPUT_PACKAGE_PATH=#{File.expand_path(builded_path)}",
+         "-e BRICKS_DEBIAN_CHANGELOG=#{config.fetch('changelog', false)}"]
       end
 
       def bootstrap(bootstrap_path)

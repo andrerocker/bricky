@@ -33,6 +33,6 @@ debian() {
 }
 
 pushd /opt/workspace/source
-  suexec debdch
+  [[ $BRICKS_DEBIAN_CHANGELOG == "true" ]] && suexec debdch
   suexec debian
 popd
