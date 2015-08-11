@@ -19,7 +19,7 @@ module Bricky
     end
 
     def important(*args)
-      info colorize_first(args, :light_blue)
+      info colorize_first(args, :cyan)
     end
 
     def normal(*args)
