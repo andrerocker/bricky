@@ -23,6 +23,12 @@ debdch() {
     dch --distribution 'unstable' --newVersion "$tag" 'Builded by bricky.'
 }
 
+debrep() {
+    info 'Building local debian repo'
+    dpkg-scanpackages /builded/ | gzip > /builded/Packages.gz
+    echo -e 'Done!\n'
+}
+
 debian() {
   info 'Starting buildpackage'
   dpkg-buildpackage -b -rfakeroot
@@ -35,4 +41,5 @@ debian() {
 pushd /opt/workspace/source
   [[ $BRICKS_DEBIAN_CHANGELOG == "true" ]] && suexec debdch
   suexec debian
+  [[ $BRICKS_DEBIAN_REPOSITORY == "true" ]] && suexec debrep
 popd
