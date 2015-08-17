@@ -16,8 +16,8 @@ stop_if_error() {
 }
 
 execute() {
-  function_name=$1
-  $function_name 2>&1 | label $function_name; stop_if_error
+    function_name=$1
+    $function_name > >(label $function_name) 2>&1
 }
 
 export -f label stop_if_error execute
