@@ -54,7 +54,7 @@ module Bricky
         end
 
         def entrypoints
-          bricks.collect(&:entrypoint).compact.uniq.join(' && ')
+          bricks.collect(&:entrypoint).compact.uniq.join(',')
         end
 
         def attach_shims

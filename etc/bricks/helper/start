@@ -1,13 +1,16 @@
 #!/bin/bash -e
 
 . $BRICKS_HOME/builder
+scripts=$(echo $BRICKY_ENTRYPOINTS | tr ',' ' ')
 
 builder() {
-  eval $BRICKY_ENTRYPOINTS
+    for bricky in $scripts
+    do
+        . $bricky
+    done
 }
 
 builder_source() {
-  scripts=$(echo $BRICKY_ENTRYPOINTS | tr " && " "\n")
   cat $scripts > /tmp/builderplan
   grep -v "bin/bash" /tmp/builderplan | more 
 }
