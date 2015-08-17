@@ -6,7 +6,7 @@ module Bricky
 
     def popen(label, command)
       Open3.popen2e(command) do |input, output, wait|
-        output.each { |line| logger.normal label, ": #{line.chomp}" } 
+        output.each { |line| logger.normal label.rjust(8), ": #{line.chomp}" } 
         wait.value.to_i.eql?(0)
       end 
     end
