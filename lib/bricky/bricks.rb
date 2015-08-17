@@ -5,6 +5,7 @@ require "bricky/bricks/ruby"
 require "bricky/bricks/rails"
 require "bricky/bricks/bundle"
 require "bricky/bricks/debian"
+require 'bricky/bricks/dotenv'
 require "bricky/bricks/mounts"
 require "bricky/bricks/version"
 

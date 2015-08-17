@@ -1,0 +1,15 @@
+#!/bin/bash -e
+
+. $BRICKS_HOME/builder
+. $BRICKS_HOME/execute
+
+dotenv() {
+  info 'Populating environment variables'
+
+  pushd /bricks/mounts/volumes/source
+    export $(cat $BRICKS_DOTENV_SOURCE_FILES | tr ',' ' ')
+    echo "From files: $BRICKS_DOTENV_SOURCE_FILES"
+  popd
+}
+
+execute dotenv

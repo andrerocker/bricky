@@ -6,6 +6,9 @@ bricky:
       source: .
       ignore:
         - source/vendor/bundle
+    dotenv:
+      source:
+        - .env
     bundle:
       cache: true
       without: development:test
