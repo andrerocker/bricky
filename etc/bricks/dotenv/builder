@@ -7,7 +7,7 @@ dotenv() {
   info 'Populating environment variables'
 
   pushd /bricks/mounts/volumes/source
-    export $(cat $BRICKS_DOTENV_SOURCE_FILES | tr ',' ' ')
+    export $(cat $BRICKS_DOTENV_SOURCE_FILES | grep -P $(cat $BRICKS_HOME/../dotenv/malignous-regex) | sed s/export//)
     echo "From files: $BRICKS_DOTENV_SOURCE_FILES"
   popd
 }
