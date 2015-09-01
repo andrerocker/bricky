@@ -40,6 +40,6 @@ debian() {
 
 pushd /opt/workspace/source
   [[ $BRICKS_DEBIAN_CHANGELOG == "true" ]] && suexec debdch
-  execute debian
+  suexec debian
   [[ $BRICKS_DEBIAN_REPOSITORY == "true" ]] && suexec debrep
 popd

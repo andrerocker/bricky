@@ -28,7 +28,7 @@ module Bricky
         end
 
         def command(template_name, image_path)
-          "docker build -t #{template_name} #{image_path}"
+          "docker build --rm -t #{template_name} #{image_path}"
         end
 
         def image
