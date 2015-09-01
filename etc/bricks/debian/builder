@@ -31,7 +31,7 @@ debrep() {
 
 debian() {
   info 'Starting buildpackage'
-  dpkg-buildpackage -b -rfakeroot
+  dpkg-buildpackage -uc -us -b -rfakeroot
 
   info 'Moving deb files to volume'
   mv /opt/workspace/*.deb /opt/workspace/*.changes  /builded/
