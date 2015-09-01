@@ -1,13 +1,14 @@
 require "bricky/bricks/base"
 
 require "bricky/bricks/helper"
-require "bricky/bricks/ruby"
-require "bricky/bricks/rails"
 require "bricky/bricks/bundle"
 require "bricky/bricks/debian"
-require 'bricky/bricks/dotenv'
 require "bricky/bricks/mounts"
+require "bricky/bricks/rails"
+require "bricky/bricks/ruby"
 require "bricky/bricks/version"
+require 'bricky/bricks/dotenv'
+require 'bricky/bricks/system'
 
 module Bricky
   module Bricks
