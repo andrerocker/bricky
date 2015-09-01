@@ -8,7 +8,7 @@ debdch() {
     raw_tag=$(git tag | grep v | sort -t. -k 1.2,1n -k 2,2n -k 3,3n -k 4,4n | tail -1)
     use_tag=$(echo $raw_tag | tr -d 'v')
     build_number="$(ls /builded/*$use_tag+build.*deb 2> /dev/null | wc -l)"
-    
+
     if [ $build_number -gt 0 ]
     then
         lastest=$(ls /builded/*$use_tag+build.*deb | sort | tail -1)
@@ -19,7 +19,7 @@ debdch() {
     tag="$use_tag+build.$build_number"
     echo "version: $tag"
     echo "distribution: unstable"
-    
+
     dch --distribution 'unstable' --newVersion "$tag" 'Builded by bricky.'
 }
 
@@ -40,6 +40,6 @@ debian() {
 
 pushd /opt/workspace/source
   [[ $BRICKS_DEBIAN_CHANGELOG == "true" ]] && suexec debdch
-  suexec debian
+  execute debian
   [[ $BRICKS_DEBIAN_REPOSITORY == "true" ]] && suexec debrep
 popd
