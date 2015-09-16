@@ -21,18 +21,21 @@ module Bricky
       end
 
       def bootstrap(bootstrap_path)
-        if config.fetch('dependencies', false)
-          src = File.expand_path('debian/control')
-          dest = "#{bootstrap_path}/control"
-
-          FileUtils.cp(src, dest) unless skip_cached_file(src, dest)
-          ["COPY control /tmp/control", "RUN yes | mk-build-deps --install /tmp/control"]
+        ["RUN apt-get install -y --force-yes libfile-fcntllock-perl"].tap do |deps|
+          deps << package_build_dependencies(bootstrap_path) if config.fetch('dependencies', false)
         end
       end
 
       private
       def builded_path
         File.expand_path(ENV.fetch('BRICKY_PACKAGE_OUTPUT_PATH', config['build']))
+      end
+
+      def package_build_dependencies(bootstrap_path)
+        ["COPY control /tmp/control", "RUN yes | mk-build-deps --install /tmp/control"].tap do |deps|
+          src, dest = File.expand_path('debian/control'), "#{bootstrap_path}/control"
+          FileUtils.cp(src, dest) unless skip_cached_file(src, dest)
+        end
       end
 
       def skip_cached_file(src, dest)

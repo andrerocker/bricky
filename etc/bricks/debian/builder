@@ -39,6 +39,9 @@ debian() {
 }
 
 pushd /opt/workspace/source
+  # suppress warnings
+  chmod 755 /root && touch /root/.dpkg.cfg
+
   [[ $BRICKS_DEBIAN_CHANGELOG == "true" ]] && suexec debdch
   suexec debian
   [[ $BRICKS_DEBIAN_REPOSITORY == "true" ]] && suexec debrep
