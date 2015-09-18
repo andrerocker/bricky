@@ -8,7 +8,7 @@ mounts() {
 
   pushd /bricks/mounts/volumes/
     echo $BRICKS_MOUNTS_IGNORE | tr ',' '\n' > /tmp/ignore-files
-    rsync -a --stats --exclude-from /tmp/ignore-files . /opt/workspace
+    rsync -a --stats -h --exclude-from /tmp/ignore-files . /opt/workspace
     chown -R builder. /opt/workspace
   popd
 }
