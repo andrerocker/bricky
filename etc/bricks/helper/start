@@ -7,7 +7,12 @@ builder() {
     for bricky in $BRICKY_ENTRYPOINTS_SCRIPTS
     do
         . $bricky
-        [ $? -ne 0 ] && exit 1;
+        local ret=$?
+
+        if [ $ret -ne 0 ]
+        then
+            exit $ret
+        fi
     done
 }
 
