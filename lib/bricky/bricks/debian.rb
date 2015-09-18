@@ -21,7 +21,8 @@ module Bricky
       end
 
       def bootstrap(bootstrap_path)
-        ["RUN apt-get install -y --force-yes libfile-fcntllock-perl"].tap do |deps|
+        ["RUN apt-get update",
+         "RUN apt-get install -y --force-yes libfile-fcntllock-perl"].tap do |deps|
           deps << package_build_dependencies(bootstrap_path) if config.fetch('dependencies', false)
         end
       end
