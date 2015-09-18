@@ -1,4 +1,4 @@
 module Bricky
-  VERSION = "0.0.36"
+  VERSION = "0.0.37"
   CODENAME = "silver-surfer"
 end
