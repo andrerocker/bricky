@@ -1,3 +1,5 @@
+require "base64"
+
 module Bricky
   module Bricks
     class System < Base
@@ -7,6 +9,24 @@ module Bricky
             "RUN #{command}"
           end
         end
+      end
+
+      def arguments
+        ["-v #{bricks_path}/system:/bricks/system"]
+      end
+
+      def entrypoint
+        '/bricks/system/builder'
+      end
+
+      def environments
+        commands = config.fetch('builder', false)
+        commands.empty? ? nil : ["-e BRICKS_SYSTEM_COMMANDS='#{encode(commands)}'"]
+      end
+
+      private
+      def encode(commands)
+        commands.collect{|x| Base64.encode64(x).chomp}.join(';;')
       end
     end
   end

@@ -1,1 +1,19 @@
 #!/bin/bash -e
+
+. $BRICKS_HOME/suexec
+
+system() {
+    info 'Executing custom commands'
+    local commands=$(echo $BRICKS_SYSTEM_COMMANDS | sed -e 's/;;/ /g')
+    
+    pushd /opt/workspace/source
+       for rawCommand in $commands
+       do
+           local command=$(echo $rawCommand | base64 -d)
+           echo "- $command"
+           $command
+       done
+    popd
+}
+
+execute system
