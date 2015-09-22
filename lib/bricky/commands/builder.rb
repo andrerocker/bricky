@@ -15,7 +15,7 @@ module Bricky
           code = command(images)
           logger.debug format(code)
           
-          unless Bricky::Executor.system(code)
+          unless executor.call(code)
             logger.failure '~~~~~~~~~~~ Problems building image ~~~~~~~~~~~'
             return false
           end
@@ -61,6 +61,14 @@ module Bricky
           shim = Bricky.config.shim_path
           FileUtils.safe_unlink(shim) if File.exist?(shim)
           FileUtils.symlink(Bricky.config.bricks_path, shim)
+        end
+
+        def executor
+          if options['shell']
+            lambda { |command| Bricky::Executor.tty(command) }
+          else
+            lambda { |command| Bricky::Executor.system(command) }
+          end
         end
     end
   end

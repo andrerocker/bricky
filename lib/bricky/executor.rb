@@ -16,6 +16,10 @@ module Bricky
       end
     end
 
+    def tty(command)
+      Kernel.system(command)
+    end
+
     private
       def execute(command)
         Open3.popen2e(command) do |input, output, wait|
