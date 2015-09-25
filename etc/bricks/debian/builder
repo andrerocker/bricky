@@ -32,7 +32,9 @@ debrep() {
 debian() {
   info 'Starting buildpackage'
   dpkg-buildpackage -uc -us -b -rfakeroot
+}
 
+debcpy() {
   info 'Moving deb files to volume'
   cp /opt/workspace/*.deb /opt/workspace/*.changes  /builded/
   echo "Builded package available on: $BRICKS_DEBIAN_OUTPUT_PACKAGE_PATH"
@@ -43,6 +45,7 @@ pushd /opt/workspace/source
   chmod 755 /root && touch /root/.dpkg.cfg
 
   [[ $BRICKS_DEBIAN_CHANGELOG == "true" ]] && suexec debdch
-  suexec debian
+  execute debian
+  suexec debcpy
   [[ $BRICKS_DEBIAN_REPOSITORY == "true" ]] && suexec debrep
 popd
