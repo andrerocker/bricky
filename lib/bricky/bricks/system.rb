@@ -20,7 +20,7 @@ module Bricky
       end
 
       def environments
-        commands = config.fetch('builder', false)
+        commands = config.fetch('builder', [])
         commands.empty? ? nil : ["-e BRICKS_SYSTEM_COMMANDS='#{encode(commands)}'"]
       end
 
