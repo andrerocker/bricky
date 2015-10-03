@@ -5,7 +5,7 @@
 version() {
     info 'Processing version file'
     pushd /opt/workspace/source
-      last_tag=$(git describe --tags)
+      last_tag=$(git describe --tags --abbrev=0)
       commit=$(git log -1 --pretty=tformat:'%H'  $last_tag)
       author=$(git log -1 --pretty=tformat:'%an' $last_tag)
       message=$(git log -1 --pretty=tformat:'%s'  $last_tag)
