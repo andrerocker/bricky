@@ -3,6 +3,8 @@ require "logger"
 module Bricky
   class Logger < ::Logger
     def initialize
+      STDOUT.sync = true
+
       super(STDOUT)
       self.level = INFO
       self.formatter = proc do |severity, datetime, progname, msg|
