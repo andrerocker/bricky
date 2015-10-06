@@ -6,10 +6,10 @@ version() {
     info 'Processing version file'
     pushd /opt/workspace/source
       last_tag=$(git describe --tags --abbrev=0)
-      commit=$(git log -1 --pretty=tformat:'%H'  $last_tag)
-      author=$(git log -1 --pretty=tformat:'%an' $last_tag)
-      message=$(git log -1 --pretty=tformat:'%s'  $last_tag)
-      tag_date=$(git log -1 --pretty=tformat:'%ad' $last_tag)
+      commit=$(git log -1 --pretty=tformat:'%H')
+      author=$(git log -1 --pretty=tformat:'%an')
+      message=$(git log -1 --pretty=tformat:'%s')
+      tag_date=$(git log -1 --pretty=tformat:'%ad')
       
       echo "tag = $last_tag"
       echo "date = $tag_date"
