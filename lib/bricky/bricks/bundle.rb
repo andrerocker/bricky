@@ -16,7 +16,8 @@ module Bricky
       end
 
       def environments
-        ["-e BRICKS_BUNDLE_WITHOUT=#{config.fetch('without', 'development:test')}"]
+        ["-e BRICKS_BUNDLE_WITHOUT=#{config.fetch('without', 'development:test')}",
+         "-e BRICKS_BUNDLE_INSTALL=#{config.fetch('install', true)}"]
       end
 
       private
