@@ -10,13 +10,19 @@ version() {
       author=$(git log -1 --pretty=tformat:'%an')
       message=$(git log -1 --pretty=tformat:'%s')
       tag_date=$(git log -1 --pretty=tformat:'%ad')
-      
+
+      # Here we remove possible double quotes contained at $message and
+      # $last_tag variables **before** interpolating it in json, or else we
+      # might generate an invalid json!
+      message=${message//\"/}
+      last_tag=${last_tag//\"/}
+
       echo "tag = $last_tag"
       echo "date = $tag_date"
       echo "author = $author"
       echo "commit = $commit"
       echo "message = $message"
-      
+
       generated_version="
         {
            \"tag\": \"$last_tag\",
