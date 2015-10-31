@@ -26,7 +26,7 @@ module Bricky
 
       private
       def encode(commands)
-        commands.collect{|x| Base64.encode64(x).chomp}.join(';;')
+        commands.collect{|x| Base64.strict_encode64(x).chomp}.join(';;')
       end
     end
   end
