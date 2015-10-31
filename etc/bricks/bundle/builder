@@ -5,11 +5,16 @@
 bundler() {
   export GEM_HOME=~/.gems
 
-  info 'Vendor project with Bundler'
-  pushd /opt/workspace/source
-    command -v bundle > /dev/null 2>&1 || gem install --no-ri --no-rdoc bundler
-    bundle install --deployment --without=$BRICKS_BUNDLE_WITHOUT
-  popd
+  if [[ $BRICKS_BUNDLE_INSTALL == "true" ]]
+  then
+      info 'Vendor project with Bundler'
+      pushd /opt/workspace/source
+        command -v bundle > /dev/null 2>&1 || gem install --no-ri --no-rdoc bundler
+        bundle install --deployment --without=$BRICKS_BUNDLE_WITHOUT
+      popd
+  else
+      info 'Skipping install... are you using cache?'
+  fi
 }
 
 suexec bundler
