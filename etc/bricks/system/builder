@@ -11,7 +11,7 @@ system() {
        do
            local command=$(echo $rawCommand | base64 -d)
            echo "- $command"
-           $command
+           eval "$command"
        done
     popd
 }
