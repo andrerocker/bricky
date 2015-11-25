@@ -1,0 +1,5 @@
+#!/bin/bash -e
+
+echo 'Moving RPM files to volume'
+cp /usr/src/redhat/RPMS/noarch/*.rpm /builded
+
