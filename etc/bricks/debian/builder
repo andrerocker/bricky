@@ -8,6 +8,7 @@ debdch() {
     raw_tag=$(git tag | grep v | sort -t. -k 1.2,1n -k 2,2n -k 3,3n -k 4,4n | tail -1)
     use_tag=$(echo $raw_tag | tr -d 'v')
     build_number="$(ls /builded/*$use_tag+build.*deb 2> /dev/null | wc -l)"
+    project_name=$(git remote -v | head -n1 | awk '{print $2}' | sed 's/.*\///' | sed 's/\.git//')
 
     if [ $build_number -gt 0 ]
     then

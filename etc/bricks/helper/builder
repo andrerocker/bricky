@@ -5,6 +5,11 @@ info() {
     echo -e "\n\033[32m${message}\033[0m\n";
 }
 
+warning() {
+  message=$1;
+    echo -e "\033[33m${message}\033[0m\n";
+}
+
 show() {
     message=$1;
     echo -e "\033[32m${message}\033[0m";
@@ -12,8 +17,8 @@ show() {
 
 info_bricks() {
     brick=$1;
-    message=$2;
-    printf "\033[32m%8s\033[0m: ${message}\n" $brick;
+    message=$(echo "${2//%/%%}");
+    printf "\033[32m%8s\033[0m: $message \n" $brick;
 }
 
 pushd() {
@@ -24,4 +29,4 @@ popd() {
     command popd "$@" > /dev/null
 }
 
-export -f info info_bricks pushd popd
+export -f info warning info_bricks pushd popd

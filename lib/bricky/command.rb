@@ -13,6 +13,7 @@ require "bricky/commands/bootstrap"
 module Bricky
   class Command < Thor
     desc :install, "install configuration files"
+    method_option :distribution, :enum => ['centos', 'debian'], :type => :string, :default => 'debian', :aliases => "-d"
     def install
       dispatch(:install)
     end
@@ -45,7 +46,7 @@ module Bricky
 
       def dispatch(name)
         clazz = Bricky::Commands.const_get("#{name.to_s.capitalize}")
-        clazz.new(options).execute
+        clazz.new(options).execute(options)
       end
   end
 end

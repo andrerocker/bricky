@@ -5,7 +5,7 @@ require "bricky/bricks"
 module Bricky
   module Commands
     class Bootstrap < Base
-      def execute
+      def execute(options)
         logger.important "Boostraping images"
         build(image)
       end
