@@ -1,0 +1,98 @@
+#!/bin/bash -e
+
+. $BRICKS_HOME/suexec
+chown -R builder. /builded
+
+rpmspec() {
+    info 'Building package spec'
+    raw_tag=$(git tag | grep v | sort -t. -k 1.2,1n -k 2,2n -k 3,3n -k 4,4n | tail -1)
+    [[ $raw_tag == "" ]] && warning 'No git tag found'
+    use_tag=$(echo $raw_tag | tr -d 'v')
+    build_number="$(ls /builded/*$use_tag-build.*rpm 2> /dev/null | wc -l)"
+    project_name=$(git remote -v | head -n1 | awk '{print $2}' | sed 's/.*\///' | sed 's/\.git//')
+
+    if [ $build_number -gt 0 ]
+    then
+        lastest=$(ls /builded/*$use_tag-build.*rpm | sort --version-sort | tail -1)
+        build_number=$(echo $lastest | sed -n 's/.*build\.\(.*\)\.noarch.*/\1/p')
+        build_number=$(expr $build_number + 1)
+    fi
+
+    cat > /opt/workspace/SPECS/Package.spec << _EOF
+%define _topdir     /opt/workspace
+%define _builddir   %{_topdir}/BUILD
+%define _buildrootdir  %{_topdir}/BUILDROOT
+%define _rpmdir     %{_topdir}/RPMS
+%define _sourcedir  %{_topdir}/SOURCES
+%define _specdir    %{_topdir}/SPECS
+%define _srcrpmdir  %{_topdir}/SRPMS
+%define buildroot   %{_buildrootdir}/%{name}-%{version}
+
+Summary:    A project $project_name builded by Bricky.
+Name:       $project_name
+Version:    $use_tag
+Release:    build.$build_number
+SOURCE:     Package.tar.gz
+Group:      Group: Development/Tools
+License:    $project_name License
+BuildArch:  noarch
+BuildRoot:  %{buildroot}/%{name}-%{version}
+
+%description
+%{summary}
+
+%prep
+%setup -q -c
+
+%install
+rm -rf %{buildroot}
+mkdir -p  %{buildroot}
+cp -a * %{buildroot}
+
+%clean
+rm -rf %{buildroot}
+
+
+%files
+%defattr(-,root,root,-)
+/*
+
+%changelog
+_EOF
+}
+
+rpmtree() {
+    info 'Building rpm tree'
+    mkdir -p /opt/workspace/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+    echo -e 'Done!\n'
+}
+
+rpmrep() {
+    info 'Building local centos repo'
+    cd /opt/workspace/source
+    tar zcfP /opt/workspace/SOURCES/Package.tar.gz ./ --exclude='./.git'
+    echo -e 'Done!\n'
+}
+
+centos() {
+  info 'Starting buildpackage'
+  rpmbuild -bb /opt/workspace/SPECS/Package.spec
+}
+
+rpmcpy() {
+  info 'Moving rpm files to volume'
+  #cp /opt/workspace/SRPMS/*rpm /opt/workspace/SOURCES/Package.tar.gz /builded/
+  cp /opt/workspace/RPMS/*/*.rpm /builded/
+  echo "Builded package available on: $BRICKS_CENTOS_OUTPUT_PACKAGE_PATH"
+}
+
+pushd /opt/workspace/source
+  # suppress warnings
+  chmod 755 /root
+
+  suexec rpmtree
+  suexec rpmrep
+  [[ $BRICKS_CENTOS_AUTO_GENERATE_SPEC == "true" ]] && suexec rpmspec
+  execute centos
+  suexec rpmcpy
+popd

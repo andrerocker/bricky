@@ -1,0 +1,16 @@
+bricky:
+  name: myproject
+  images: bricky/images
+  bricks:
+    mounts:
+      source: .
+      ignore:
+        - source/vendor/bundle
+    dotenv:
+      source:
+        - .env
+    bundle:
+      cache: true
+      without: development:test
+    debian:
+      build: bricky/build

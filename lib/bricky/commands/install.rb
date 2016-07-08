@@ -4,15 +4,20 @@ require "thor/group"
 module Bricky
   module Commands
     class Install < Base
-      def execute
+      def execute(options)
         logger.important 'Setup bricky configuration files'
         installer = InstallThor.new
+        installer.distribution = options
         installer.execute
-      end 
+      end
 
       # Inner class :( just to work with thor
       class InstallThor < Thor::Group
         include Thor::Actions
+
+        def distribution=(opt)
+          $distribution = opt['distribution']
+        end
 
         def execute
           directory 'bricky'
@@ -20,7 +25,7 @@ module Bricky
         end
 
         def self.source_root
-          File.expand_path('../../../../etc/templates', __FILE__)
+          File.expand_path("../../../../etc/templates/#{$distribution}", __FILE__)
         end
       end
     end

@@ -4,7 +4,7 @@ require "bricky/bricks"
 module Bricky
   module Commands
     class Builder < Base
-      def execute
+      def execute(options)
         logger.important 'Building Project'
         build(Bricky::Image.new("builder"))
       end
